@@ -1,0 +1,31 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Nanum+Myeongjo:wght@700&display=swap');
+
+#input {
+    position: absolute;
+    top: 45%;
+    /* height: 100vh; */
+    /* height: auto; */
+    width: 80%;
+
+    text-align: center;
+  
+    background-color: transparent;
+    border-top: none;
+    border-right: none;
+    border-left: none;
+    border-bottom: none;
+    outline: none;
+
+    font-size: 4.0rem;
+    font-family: 'DM Serif Display', serif;
+}
+
+#main {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#body {
+    background-color: #f1e8d7;
+}
