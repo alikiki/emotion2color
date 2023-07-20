@@ -1,8 +1,3 @@
 .DS_Store
-server/repl.py
-server/conversion_matrix.npy
-server/embeddings.npy
-server/main.ipynb
-server/__pycache__
-server/venv
-server/model
+client
+server

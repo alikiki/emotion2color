@@ -33,8 +33,6 @@ function transition(startHex, endHex, step, element) {
     const startRGB = startHex;
     const endRGB = hexToRgb(endHex);
 
-    console.log(startRGB, endRGB)
-
     let delay = 0;
     for (let i = 0; i <= step; i++) {
         delay += 10;
@@ -45,7 +43,6 @@ function transition(startHex, endHex, step, element) {
 
             const newHex = '#' + r.toString(16) + g.toString(16) + b.toString(16);
             element.style.backgroundColor = newHex;
-            console.log(newHex);
         }, delay);
     }
 }
@@ -57,13 +54,15 @@ document.addEventListener('DOMContentLoaded', function () {
     let timeout;
 
     inputElement.addEventListener('input', function () {
+        this.style.height = 'auto';
+        this.style.height = Math.min(this.scrollHeight, 0.8 * window.innerHeight) + 'px';
         clearTimeout(timeout);
         timeout = setTimeout(() => {
             const inputValue = inputElement.value;
             if (inputValue === "") {
                 return;
             } else {
-                fetch('http://127.0.0.1:5000/color', {
+                fetch('https://colorizer-seven.vercel.app/color', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json'
@@ -82,9 +81,17 @@ document.addEventListener('DOMContentLoaded', function () {
                         const r = match[1];
                         const g = match[2];
                         const b = match[3];
-                        console.log(r, g, b)
                         transition([r, g, b].map((c) => parseInt(c)), data.hex, 100, body);
-                    });
+                    })
+                    .catch((err) => {
+                        const infoPane = document.getElementById('infoPane');
+                        infoPane.style.display = "flex";
+                        inputElement.disabled = true;
+                        infoPane.addEventListener('click', () => {
+                            infoPane.style.display = "none";
+                            inputElement.disabled = false;
+                        })
+                    })
             }
         }, 1000);
     });
